@@ -104,7 +104,6 @@ const setUploadAddress = (uploadAddress:string) => {
   localStorage.setItem("uploadAddress", uploadAddress);
 }
 
-
 /**
  * 请求
  * @param param 请求参数
@@ -120,10 +119,10 @@ const request = (param: ParamOfRequest, uuid?:any) => {
     }
     axios({
         url: getRootAddress()+"/"+param.url,
-        method: param.method,
+        method: param.method || "post",
         data: param.data,
-        params: param.params,
         headers: {
+            contentType: param.contentType || "application/json;charset=UTF-8",
             token: getToken(),
             languageCode: getLanguageCode(),
             uuid: uuid,

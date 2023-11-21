@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import file from "../../libs/file";
 import date from "../../libs/date";
 
@@ -11,12 +12,54 @@ defineProps({
     type: Array<any>,
     default: null,
   },
+  maxHeight: {
+    type: String,
+    default: "300px",
+  },
+  isHasIndex: {
+    type: Boolean,
+    default: true,
+  },
+  isHasSelection: {
+    type: Boolean,
+    default: true,
+  },
+  selection: {
+    type: Array<any>,
+    default: () => [],
+  },
+  rowKey: {
+    type: String,
+    default: "id",
+  },
 });
+
+let emit = defineEmits(["update:selection"]);
+
+let handleSelectionChange = (val: any) => {
+  emit("update:selection", val);
+};
 
 </script>
 
 <template>
-  <el-table :data="dataSource">
+  <el-table
+      :data="dataSource"
+      height="500px"
+      :reserve-selection="true"
+      @selection-change="handleSelectionChange"
+  >
+    <el-table-column
+        v-if="isHasSelection"
+        :row-key="rowKey"
+        type="selection"
+        width="55"></el-table-column>
+
+    <el-table-column
+        v-if="isHasIndex"
+        type="index"
+        width="55"></el-table-column>
+
     <el-table-column
         v-for="column in columns"
         :key="column.field"
@@ -25,7 +68,7 @@ defineProps({
         :width="column.width"
     >
 
-      <template v-if="column.type === 'index'" #default="scope">
+      <template #default="scope">
 
         <div>
 
@@ -64,12 +107,18 @@ defineProps({
                       alt="" style="width: 100px"></el-image>
           </template>
 
+          <template v-else>
+            {{ scope.row[column.field] }}
+          </template>
+
         </div>
 
       </template>
 
 
     </el-table-column>
+
+    <slot></slot>
   </el-table>
 </template>
 

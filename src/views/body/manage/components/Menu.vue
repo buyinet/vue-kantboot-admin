@@ -14,7 +14,7 @@ let addBreadCrumbItem = (item: ManageMenuType) => {
 <template>
   <el-scrollbar id="scrollbar" ref="scrollbar"
                 class="scrollbar"
-                :style="`height:${rajasStore.getMainHeight}px;`">
+                :style="`height:${rajasStore.getMainHeight}px;margin:0;`">
     <el-menu class="menu" :router="true"
     :default-active="$route.path"
     >

@@ -23,6 +23,7 @@ breadCrumbList = ref(manageMenuStore.getBreadCrumbList);
       <el-breadcrumb-item
           v-else
           v-for="item in breadCrumbList"
+          @click="manageMenuStore.addBreadCrumbItem(item)"
           :to="{ path: item.path }">{{item.title}}</el-breadcrumb-item>
     </el-breadcrumb>
   </el-card>

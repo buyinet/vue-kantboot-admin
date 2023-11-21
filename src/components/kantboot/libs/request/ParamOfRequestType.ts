@@ -11,6 +11,12 @@ type ParamOfRequest={
      * 请求方法
      */
     method?: string;
+
+    /**
+     * contentType
+     */
+    contentType?: string;
+
     /**
      * 请求数据
      */

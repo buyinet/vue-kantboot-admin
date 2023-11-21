@@ -10,10 +10,12 @@ type PageRequestParam<T> = {
      * @param data 请求的数据
      */
     data: T | any;
+
     /**
      * @param pageSize 每页的大小
      */
     pageSize: number;
+
     /**
      * @param pageNumber 页码
      */

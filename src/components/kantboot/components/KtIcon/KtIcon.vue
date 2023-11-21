@@ -10,7 +10,7 @@ defineProps({
   },
   color: {
     type: String,
-    default: "#000",
+    default: null,
   },
 });
 </script>

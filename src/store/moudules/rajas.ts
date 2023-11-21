@@ -17,6 +17,10 @@ export interface IRajasStore {
      * Main高度
      */
     mainHeight: number,
+    /**
+     * 管理后台Main高度
+     */
+    manageMainHeight: number,
 }
 
 const useRajasStore = defineStore({
@@ -28,6 +32,7 @@ const useRajasStore = defineStore({
         },
         headerHeight: 0,
         mainHeight: 0,
+        manageMainHeight: 500,
     }),
     getters: {
         getWindowSize(): IRajasStore['windowSize'] {
@@ -39,6 +44,9 @@ const useRajasStore = defineStore({
         getMainHeight(): IRajasStore['mainHeight'] {
             return this.mainHeight;
         },
+        getManageMainHeight(): IRajasStore['manageMainHeight'] {
+            return this.manageMainHeight;
+        }
     },
     actions: {
         setWindowSize(size: IRajasStore['windowSize']) {
@@ -50,6 +58,9 @@ const useRajasStore = defineStore({
         setMainHeight(height: IRajasStore['mainHeight']) {
             this.mainHeight = height;
         },
+        setManageMainHeight(height: IRajasStore['manageMainHeight']) {
+            this.manageMainHeight = height;
+        }
     }
 })
 
