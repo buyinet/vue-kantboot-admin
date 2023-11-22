@@ -1,27 +1,21 @@
 <script lang="ts" setup>
-import {ref,defineEmits} from "vue";
+import {ref} from "vue";
 import $kt from "/src/components/kantboot"
-import { useSettingStore } from "../storeMoudules/setting.ts";
 
-let settingStore = useSettingStore();
 let emits = defineEmits(["submit"]);
 
 let dialogVisible = ref(false);
 
 type RequestParam = {
-  groupCode: string,
   code: string,
   name: string,
-  value: string,
   description: string,
   priority: number,
 }
 
 let requestParamInit: RequestParam = {
-  groupCode: "",
   code: "",
   name: "",
-  value: "",
   description: "",
   priority: 0,
 }
@@ -37,7 +31,7 @@ let init = () => {
 
 let save = () => {
   $kt.request.request({
-    url: "/system-setting-web/admin/setting/save",
+    url: "/system-setting-web/admin/settingGroup/save",
     method: "post",
     data: requestParam.value,
     stateSuccess: (res: any) => {
@@ -51,9 +45,6 @@ let save = () => {
 let open = (param?: any) => {
   if (param) {
     requestParam.value = JSON.parse(JSON.stringify(param));
-  }
-  if(settingStore.$state.groupOfSelected.code!=null&&settingStore.$state.groupOfSelected.code!=''){
-    requestParam.value.groupCode = settingStore.$state.groupOfSelected.code;
   }
   dialogVisible.value = true;
 };
@@ -70,25 +61,17 @@ defineExpose({
     <el-form :model="requestParam"
              label-position="top"
              label-width="80px">
-      <el-form-item label="分组编码">
-        <el-input v-model="requestParam.groupCode"
-                  :disabled="settingStore.$state.groupOfSelected.code!=null&&settingStore.$state.groupOfSelected.code!=''"></el-input>
-      </el-form-item>
-
       <el-form-item label="编码" prop="code">
         <el-input v-model="requestParam.code"></el-input>
       </el-form-item>
-
       <el-form-item label="名称" prop="name">
         <el-input v-model="requestParam.name"></el-input>
       </el-form-item>
-
-      <el-form-item label="值" prop="value">
-        <el-input v-model="requestParam.value"></el-input>
-      </el-form-item>
-
       <el-form-item label="描述" prop="description">
         <el-input v-model="requestParam.description"></el-input>
+      </el-form-item>
+      <el-form-item label="优先级" prop="priority">
+        <el-input-number v-model="requestParam.priority" :min="0" :max="999999"></el-input-number>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

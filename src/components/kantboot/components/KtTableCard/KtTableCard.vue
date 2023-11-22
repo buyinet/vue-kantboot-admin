@@ -11,7 +11,7 @@ let props = defineProps({
     type: Array<any>,
     default: null,
   },
-  maxHeight: {
+  height: {
     type: String,
     default: "500px",
   },
@@ -54,6 +54,10 @@ let props = defineProps({
   rowKey: {
     type: String,
     default: "id",
+  },
+  loading: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -134,10 +138,11 @@ let changePageSize = (val) => {
     <kt-table
         :is-has-selection="isHasSelection"
         :row-key="rowKey"
+        :loading="propsData.loading"
         v-model:selection="propsData.selection"
         :columns="propsData.columns"
         :dataSource="propsData.dataSource"
-        :max-height="`${propsData.maxHeight}`"
+        :height="`${propsData.height}`"
         :is-index-show="propsData.isIndexShow"
     >
       <slot></slot>

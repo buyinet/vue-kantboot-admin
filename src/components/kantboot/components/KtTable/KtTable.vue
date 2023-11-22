@@ -12,7 +12,7 @@ defineProps({
     type: Array<any>,
     default: null,
   },
-  maxHeight: {
+  height: {
     type: String,
     default: "300px",
   },
@@ -32,6 +32,10 @@ defineProps({
     type: String,
     default: "id",
   },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 let emit = defineEmits(["update:selection"]);
@@ -45,8 +49,9 @@ let handleSelectionChange = (val: any) => {
 <template>
   <el-table
       :data="dataSource"
-      height="500px"
+      :height="`calc(${height} - 50px)`"
       :reserve-selection="true"
+      :loading="loading"
       @selection-change="handleSelectionChange"
   >
     <el-table-column
